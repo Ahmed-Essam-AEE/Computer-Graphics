@@ -67,14 +67,26 @@ void CircleIterativePolar(HDC hdc, int xc, int yc, int R, COLORREF color)
 	double x = R, y = 0;
 	double dtheta = 1.0 / R;
 	double cdtheta = cos(dtheta), sdtheta = sin(dtheta);
-	Draw8Points(hdc, xc, yc, R, 0, color);
+	//Draw8Points(hdc, xc, yc, R, 0, color);
 	while (x>y)
 	{
 		double x1 = x*cdtheta - y*sdtheta;
 		y = x*sdtheta + y*cdtheta;
 		x = x1;
-		Draw8Points(hdc, xc, yc, Round(x), Round(y), color);
+		Draw8Points(hdc, xc, yc, x, y, color);
+		//DrawLine1(hdc, xc, yc, Round(x), Round(y), RGB(255, 0, 0));
 	}
+}
+void Draw8Lines(HDC hdc, int xc, int yc, int a, int b, COLORREF color)
+{
+	DrawLine1(hdc,xc,yc, xc + a, yc + b, color);
+	DrawLine1(hdc,xc,yc, xc - a, yc + b, color);
+	DrawLine1(hdc,xc,yc, xc - a, yc - b, color);
+	DrawLine1(hdc,xc,yc, xc + a, yc - b, color);
+	DrawLine1(hdc,xc,yc, xc + b, yc + a, color);
+	DrawLine1(hdc,xc,yc, xc - b, yc + a, color);
+	DrawLine1(hdc,xc,yc, xc - b, yc - a, color);
+	DrawLine1(hdc,xc,yc, xc + b, yc - a, color);
 }
 
 /*  Declare Windows procedure  */
@@ -167,14 +179,16 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
         if(index==1){
             x2=LOWORD(lParam);
             y2=HIWORD(lParam);
-            DrawLine1(hdc, x, y, x2, y2, RGB(255, 0, 0));
+            //DrawLine1(hdc, x, y, x2, y2, RGB(255, 0, 0));
 
             raduis=sqrt(pow(y2-y , 2) + pow(x-x2 , 2));
 
-            if(index2==0){
-                CircleIterativePolar(hdc,  x,  y,  raduis, RGB(255, 0, 0));
-                index2=1;
-                }
+            //if(index2==0){
+                CircleIterativePolar(hdc,  x,  y,  raduis, RGB(0, 0, 0));
+                index=0;
+                //index2=1;
+                //}
+            //Draw8Lines(hdc, x, y, 0, raduis, RGB(255, 0, 0));
             ReleaseDC(hwnd, hdc);
             }
         break;
