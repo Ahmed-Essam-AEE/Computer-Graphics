@@ -53,13 +53,21 @@ void DrawLine1(HDC hdc, int x1, int y1, int x2, int y2, COLORREF c)
 void Draw8Points(HDC hdc, int xc, int yc, int a, int b, COLORREF color)
 {
 	SetPixel(hdc, xc + a, yc + b, color);
+	DrawLine1(hdc,xc,yc, xc + a, yc + b, RGB(255,0,0));
 	SetPixel(hdc, xc - a, yc + b, color);
+	DrawLine1(hdc,xc,yc, xc - a, yc + b, RGB(0,255,0));
 	SetPixel(hdc, xc - a, yc - b, color);
+	DrawLine1(hdc,xc,yc, xc - a, yc - b, RGB(0,0 , 255));
 	SetPixel(hdc, xc + a, yc - b, color);
+	DrawLine1(hdc,xc,yc, xc + a, yc - b, RGB(128,0,0));
 	SetPixel(hdc, xc + b, yc + a, color);
+	DrawLine1(hdc,xc,yc, xc + b, yc + a, RGB(255,255,0));
 	SetPixel(hdc, xc - b, yc + a, color);
+	DrawLine1(hdc,xc,yc, xc - b, yc + a, RGB(128,0,128));
 	SetPixel(hdc, xc - b, yc - a, color);
+	DrawLine1(hdc,xc,yc, xc - b, yc - a, RGB(0,0 , 128));
 	SetPixel(hdc, xc + b, yc - a, color);
+	DrawLine1(hdc,xc,yc, xc + b, yc - a, RGB(192,192,192));
 }
 
 void CircleIterativePolar(HDC hdc, int xc, int yc, int R, COLORREF color)
