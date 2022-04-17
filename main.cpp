@@ -66,8 +66,8 @@ void Draw8Points(HDC hdc, int xc, int yc, int a, int b, COLORREF color)
 	
 	SetPixel(hdc, xc - a, yc - b, color);                 
 	DrawLine1(hdc,xc,yc, xc - a, yc - b, RGB(0,0,0));//5
-	
-	SetPixel(hdc, xc - b, yc - a, color);
+	                                                      
+	SetPixel(hdc, xc - b, yc - a, color);                 
 	DrawLine1(hdc,xc,yc, xc - b, yc - a, RGB(0,200,0));//6
 	
 	SetPixel(hdc, xc + b, yc - a, color);
@@ -82,7 +82,7 @@ void CircleIterativePolar(HDC hdc, int xc, int yc, int R, COLORREF color)
 	double x = R, y = 0;
 	double dtheta = 1.0 / R;
 	double cdtheta = cos(dtheta), sdtheta = sin(dtheta);
-	//Draw8Points(hdc, xc, yc, R, 0, color);
+	Draw8Points(hdc, xc, yc, R, 0, color);
 	while (x>y)
 	{
 		double x1 = x*cdtheta - y*sdtheta;
