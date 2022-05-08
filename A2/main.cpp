@@ -206,7 +206,7 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
             y=HIWORD(lParam);
             index1=1;
         }
-        if(circleIsDrawed && numOfcurves<2){
+        if(circleIsDrawed && numOfcurves<4){
             p[index] = Vector(LOWORD(lParam), HIWORD(lParam));
             if (index == 3){
                 Vector T1(3 * (p[1][0] - p[0][0]), 3 * (p[1][1] - p[0][1]));
@@ -216,7 +216,7 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
                 ReleaseDC(hwnd, hdc);
                 index = 0;
                 numOfcurves++;
-                if (numOfcurves==2){
+                if (numOfcurves==4){
                     numOfcurves=0;
                     circleIsDrawed=false;
                 }
