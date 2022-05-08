@@ -97,7 +97,7 @@ struct Vector{
 	double& operator[](int i){ return v[i];
 	}
 };
-void DrawHermiteCurve(HDC hdc,Vector& p1, Vector& T1, Vector& p2, Vector& T2, COLORREF c)
+void DrawHermiteCurve(HDC hdc,Vector& p1, Vector& T1, Vector& p2, Vector& T2, int xc ,int yc , int r)
 {
 	double a0 = p1[0], a1 = T1[0],
 		a2 = -3 * p1[0] - 2 * T1[0] + 3 * p2[0] - T2[0],
@@ -110,7 +110,11 @@ void DrawHermiteCurve(HDC hdc,Vector& p1, Vector& T1, Vector& p2, Vector& T2, CO
 		double t2 = t*t, t3 = t2*t;
 		double x = a0 + a1*t + a2*t2 + a3*t3;
 		double y = b0 + b1*t + b2*t2 + b3*t3;
-		SetPixel(hdc, Round(x), Round(y), c);
+		int d = (pow(x-xc , 2) + pow(y-yc , 2)) - pow(r,2);
+		if(d<0){
+            SetPixel(hdc, Round(x), Round(y), RGB(255 , 0 , 0));
+		}else SetPixel(hdc, Round(x), Round(y), RGB(0 , 0 , 255));
+
 	}
 }
 
@@ -208,7 +212,7 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
                 Vector T1(3 * (p[1][0] - p[0][0]), 3 * (p[1][1] - p[0][1]));
                 Vector T2(3 * (p[3][0] - p[2][0]), 3 * (p[3][1] - p[2][1]));
                 hdc = GetDC(hwnd);
-                DrawHermiteCurve(hdc, p[0], T1, p[3], T2, RGB(255, 0, 0));
+                DrawHermiteCurve(hdc, p[0], T1, p[3], T2, x , y , raduis);
                 ReleaseDC(hwnd, hdc);
                 index = 0;
                 numOfcurves++;
